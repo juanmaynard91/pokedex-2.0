@@ -1,6 +1,7 @@
 <template>
   <div class="container altura-barras">
-    <apexchart width="350" type="bar" :options="options" :series="series"></apexchart>
+    <!-- 350 lo tenia configurado -->
+    <apexchart width="330" type="bar" :options="options" :series="series"></apexchart>
   </div>
 </template>
 

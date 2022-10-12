@@ -126,6 +126,38 @@ const estadisticas = computed(() => {
 /* importo los colores de los tipos desde style.css */
 @import "../assets/style.css";
 
+/* ancho de celular 422*/
+@media (width: 422px) {
+.centrar {
+  padding-top: 20px !important;
+  width: 90% !important;
+  margin: 0px auto !important;
+ }
+
+ .card-body {
+  padding: 0 !important;
+ }
+}
+
+/* ancho de celular 991*/
+@media (width: 991px) {
+.centrar {
+  padding-top: 20px !important;
+  width: 90% !important;
+  margin: 0px auto !important;
+ }
+
+ .card-body {
+  padding: 0 !important;
+ }
+}
+
+.centrar {
+  padding-top: 20px;
+  width: 50%;
+  margin: 0px auto;
+}
+
 p {
   margin: 0;
 }
@@ -141,33 +173,10 @@ span {
   align-items: center;
 }
 
-@media (width: 412px) and (height: 915px) {
-  img {
-    height: 10rem !important;
-    width: 10rem !important;
-  }
-  .card-body {
-    padding-left: 0 !important;
-    width: 15rem !important;
-  }
-}
-
-img {
-  height: 25rem;
-  width: 22rem;
-  object-fit: cover;
-}
-
 .centrar-loading {
   display: flex;
   justify-content: center;
   margin-top: 15rem;
-}
-
-.centrar {
-  display: grid;
-  place-items: center;
-  padding-top: 20px;
 }
 
 .list-enter-active,
@@ -189,9 +198,5 @@ img {
   filter: drop-shadow(0 0 15px #121212);
 }
 
-/*.card-body {
-  padding-left: 3rem;
-  width: 19rem;
-}*/
 
 </style>
