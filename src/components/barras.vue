@@ -1,7 +1,7 @@
 <template>
   <div class="container altura-barras">
-    <!-- 350 lo tenia configurado -->
-    <apexchart width="330" type="bar" :options="options" :series="series"></apexchart>
+    <!-- 350 de ancho lo tenia configurado -->
+    <apexchart height="200" type="bar" :options="options" :series="series"></apexchart>
   </div>
 </template>
 
@@ -46,6 +46,7 @@ const series = computed(() => {
 }
 
 .altura-barras{
-  height: 11.3rem;
+  height: 10rem;
+  padding: 0;
 }
 </style>

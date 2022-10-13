@@ -5,30 +5,33 @@
 
   <!-- min-vh-100 -->
   <main class="container">
-    <form class="mt-4 mb-3" @submit.prevent="buscarPokemones">
-      <input class="form-control" type="text" placeholder="ingresa nombre pokemon o numero..." v-model.trim="pokemonID" />
-    </form>
+    <div class="input-group mt-3 mb-3">
+      <input type="text" class="form-control" placeholder="nombre o numero.." aria-label="Recipient's username" aria-describedby="button-addon2" v-model.trim="pokemonID" />
+      <button class="btn btn-dark" type="button" id="button-addon2" @click="buscarPokemones">
+        <i class='bx bx-search' ></i>
+      </button>
+    </div>
 
     <transition name="list">
-      <!-- Object.entries(pokemones).length > 0 : lo que hace es que solo muestra info cuando tiene algo que mostrar-->
-      <div class="centrar" v-if="Object.entries(pokemones).length > 0" ref="target" :style="{ transform: cardTransform }">
-        <div class="card mb-3 text-uppercase fw-bold">
+        <!-- Object.entries(pokemones).length > 0 : lo que hace es que solo muestra info cuando tiene algo que mostrar-->
+        <div class="centrar" v-if="Object.entries(pokemones).length > 0" ref="target" :style="{ transform: cardTransform }">
+        <div class="card mb-3 fw-bold">
           <div class="row g-0">
             <div class="col-md-4">
-              <img :src="pokemones.sprites.front_default" :alt="pokemones.name" loading="lazy" />
+              <img class="imagen-card" :src="pokemones.sprites.front_default" :alt="pokemones.name" loading="lazy" />
             </div>
             <div class="col-md-8">
               <div class="card-body d-grid gap-3">
                 <p>#{{ pokemones.id }}</p>
 
-                <h3>{{ pokemones.name }}</h3>
+                <p>{{ pokemones.name }}</p>
 
                 <div class="d-flex justify-content-center align-items-center color-letra">
                   <div class="badge" v-for="(type, index) in pokemones.types" :key="index">
                     <!-- :class si el nombre en css coinside con type.name muestro el color -->
                     <span :class="type.type.name"> {{ type.type.name }}</span>
                   </div>
-                </div>                
+                </div>
 
                 <div class="color-letra">
                   habilidades :
@@ -37,14 +40,22 @@
                   </div>
                 </div>
 
+                <div class="color-letra">
+                  estadisticas :
+                  <div v-for="(stat, index) in pokemones.stats" :key="index">
+                    <div>{{ stat.stat.name }} {{ stat.base_stat }}</div>
+                  </div>
+                </div>
+
                 <!-- los datos del computed estadistica se lo mando por props -->
-                <barras :estadisticas="estadisticas" />
+                <!--<barras :estadisticas="estadisticas" />-->
               </div>
             </div>
           </div>
         </div>
       </div>
     </transition>
+
   </main>
 </template>
 
@@ -66,7 +77,7 @@ const pokemonID = ref("");
 const cardTransform = computed(() => {
   const MAX_ROTATION = 6;
 
-  const rX = ( MAX_ROTATION / 2 - (elementY.value / elementHeight.value) * MAX_ROTATION ).toFixed(2);
+  const rX = ( MAX_ROTATION / 2 - (elementY.value / elementHeight.value) * MAX_ROTATION).toFixed(2);
   const rY = ( (elementX.value / elementWidth.value) * MAX_ROTATION - MAX_ROTATION / 2).toFixed(2);
 
   return isOutside.value ? "" : `perspective(${elementWidth.value}px) rotateX(${rX}deg) rotateY(${rY}deg)`;
@@ -91,6 +102,7 @@ const cargarLosBichos = async () => {
 };
 
 const buscarPokemones = () => {
+  event.preventDefault(); //prevengo el comportamiento por defecto
   if (pokemonID.value !== "") {
     //por si el usuario ingresa la primera letra en mayuscula haga la busqueda igual
     pokemonID.value = pokemonID.value.toLocaleLowerCase();
@@ -126,36 +138,20 @@ const estadisticas = computed(() => {
 /* importo los colores de los tipos desde style.css */
 @import "../assets/style.css";
 
-/* ancho de celular 422*/
-@media (width: 422px) {
-.centrar {
-  padding-top: 20px !important;
-  width: 90% !important;
-  margin: 0px auto !important;
- }
+.imagen-card{
+  height: 20rem;
+}
 
- .card-body {
-  padding: 0 !important;
+@media (max-width: 767px){
+.imagen-card{
+  height: 7rem;
  }
 }
 
-/* ancho de celular 991*/
-@media (width: 991px) {
-.centrar {
-  padding-top: 20px !important;
-  width: 90% !important;
-  margin: 0px auto !important;
- }
-
- .card-body {
-  padding: 0 !important;
- }
-}
-
-.centrar {
-  padding-top: 20px;
-  width: 50%;
-  margin: 0px auto;
+.centrar{
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
 }
 
 p {
@@ -197,6 +193,5 @@ span {
 .card:hover {
   filter: drop-shadow(0 0 15px #121212);
 }
-
 
 </style>

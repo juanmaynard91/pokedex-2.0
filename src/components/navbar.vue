@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
+    <div class="container-fluid acomodar-navbar">
       <a class="navbar-brand">
-        <h2>Busca tu pokemon pa</h2>
+        <h3>Busca tu pokemon pa</h3>
       </a>
       <cambiarTema />
     </div>
@@ -14,4 +14,7 @@ import cambiarTema from "./cambiarColor.vue";
 </script>
 
 <style scoped>
+a { 
+  margin: 0;
+}
 </style>

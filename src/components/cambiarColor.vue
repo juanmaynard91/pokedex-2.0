@@ -1,6 +1,6 @@
 <template>
   <button id="theme" @click="changeDarkMode">
-    <span class="button_top">Dark/Light</span>
+    <span class="button_top">Dark / Light</span>
   </button>
 </template>
 
@@ -42,7 +42,7 @@ body[theme="dark"] {
   background-color: #03001e !important;
   .card {
     background: #757f9a;
-    p, h3 {
+    p {
       color: $color-letra-card;
     }
     span {
@@ -58,7 +58,7 @@ button {
   --button_radius: 0.75em;
   --button_color: #0575e6;
   --button_outline_color: #000000;
-  font-size: 17px;
+  font-size: 12px;
   font-weight: bold;
   border: none;
   border-radius: var(--button_radius);
@@ -83,5 +83,11 @@ button:hover .button_top {
 
 button:active .button_top {
   transform: translateY(0);
+}
+
+@media (max-width: 360px){
+  button {
+  font-size: 10px;
+  }
 }
 </style>
