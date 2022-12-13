@@ -2,7 +2,7 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid acomodar-navbar">
       <a class="navbar-brand">
-        <img src="../assets/logo-pokemon.png" alt="logo pokemon" />
+        <img src="../assets/logo-pokemon.png" alt="logo pokemon" loading="lazy" />
       </a>
       <cambiarTema />
     </div>
