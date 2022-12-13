@@ -2,7 +2,7 @@
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid acomodar-navbar">
       <a class="navbar-brand">
-        <h3>Busca tu pokemon pa</h3>
+        <img src="../assets/logo-pokemon.png" alt="logo pokemon" />
       </a>
       <cambiarTema />
     </div>
@@ -14,7 +14,11 @@ import cambiarTema from "./cambiarColor.vue";
 </script>
 
 <style scoped>
-a { 
+a {
   margin: 0;
+}
+
+img {
+  height: 3rem;
 }
 </style>

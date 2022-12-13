@@ -6,21 +6,20 @@
   <!-- min-vh-100 -->
   <main class="container">
     <div class="input-group mt-3 mb-3">
-      <input type="text" class="form-control" placeholder="nombre o numero.." aria-label="Recipient's username" aria-describedby="button-addon2" v-model.trim="pokemonID" />
-      <button class="btn btn-dark" type="button" id="button-addon2" @click="buscarPokemones">
-        <i class='bx bx-search' ></i>
-      </button>
+      <form @submit.prevent="buscarPokemones">
+        <input type="text" class="form-control input" placeholder="ingresa nombre o numero.." v-model.trim="pokemonID" />
+      </form>
     </div>
 
     <transition name="list">
-        <!-- Object.entries(pokemones).length > 0 : lo que hace es que solo muestra info cuando tiene algo que mostrar-->
-        <div class="centrar" v-if="Object.entries(pokemones).length > 0" ref="target" :style="{ transform: cardTransform }">
+      <!-- Object.entries(pokemones).length > 0 : lo que hace es que solo muestra info cuando tiene algo que mostrar-->
+      <div class="centrar" v-if="Object.entries(pokemones).length > 0" ref="target" :style="{ transform: cardTransform }">
         <div class="card mb-3 fw-bold">
           <div class="row g-0">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <img class="imagen-card" :src="pokemones.sprites.front_default" :alt="pokemones.name" loading="lazy" />
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
               <div class="card-body d-grid gap-3">
                 <p>#{{ pokemones.id }}</p>
 
@@ -55,11 +54,11 @@
         </div>
       </div>
     </transition>
-
   </main>
 </template>
 
 <script setup>
+// instalar con npm para que la app funcione sin internet en vez de usar link o script en html
 import barras from "../components/barras.vue";
 import navbar from "../components/navbar.vue";
 import loading from "../components/loading.vue";
@@ -68,7 +67,8 @@ import { useMouseInElement } from "@vueuse/core"; // install npm animacion card 
 import Swal from "sweetalert2"; // alert
 
 const target = ref(null);
-const { elementX, elementY, isOutside, elementHeight, elementWidth } = useMouseInElement(target);
+const { elementX, elementY, isOutside, elementHeight, elementWidth } =
+  useMouseInElement(target);
 const pokemones = ref([]);
 const pokeApi = "https://pokeapi.co/api/v2/pokemon";
 const pokemonID = ref("");
@@ -80,8 +80,7 @@ const cardTransform = computed(() => {
   const rX = ( MAX_ROTATION / 2 - (elementY.value / elementHeight.value) * MAX_ROTATION).toFixed(2);
   const rY = ( (elementX.value / elementWidth.value) * MAX_ROTATION - MAX_ROTATION / 2).toFixed(2);
 
-  return isOutside.value ? "" : `perspective(${elementWidth.value}px) rotateX(${rX}deg) rotateY(${rY}deg)`;
-});
+  return isOutside.value ? "" : `perspective(${elementWidth.value}px) rotateX(${rX}deg) rotateY(${rY}deg)`;});
 
 const cargarLosBichos = async () => {
   try {
@@ -89,7 +88,7 @@ const cargarLosBichos = async () => {
     const res = await fetch(`${pokeApi}/${pokemonID.value}`);
     const data = await res.json();
     pokemones.value = data;
-    console.log(data);
+    //console.log(data);
   } catch (error) {
     //alert("la url exploto en mil pedasos rey");
     Swal.fire({
@@ -102,7 +101,7 @@ const cargarLosBichos = async () => {
 };
 
 const buscarPokemones = () => {
-  event.preventDefault(); //prevengo el comportamiento por defecto
+  //event.preventDefault(); //prevengo el comportamiento por defecto
   if (pokemonID.value !== "") {
     //por si el usuario ingresa la primera letra en mayuscula haga la busqueda igual
     pokemonID.value = pokemonID.value.toLocaleLowerCase();
@@ -138,17 +137,27 @@ const estadisticas = computed(() => {
 /* importo los colores de los tipos desde style.css */
 @import "../assets/style.css";
 
-.imagen-card{
-  height: 20rem;
+.imagen-card {
+  height: 25rem;
 }
 
-@media (max-width: 767px){
-.imagen-card{
-  height: 7rem;
- }
+.input {
+  margin-bottom: 6rem;
 }
 
-.centrar{
+@media (max-width: 767px) {
+  .imagen-card {
+    height: 7rem;
+  }
+}
+
+@media (max-height: 915px) {
+   .input{
+    margin-bottom: 6rem;
+   }
+}
+
+.centrar {
   display: grid;
   place-items: center;
   margin: 0 auto;
@@ -160,6 +169,10 @@ p {
 
 span {
   padding: 5px;
+}
+
+form {
+  width: 100%;
 }
 
 /*centro la imagen */
@@ -193,5 +206,4 @@ span {
 .card:hover {
   filter: drop-shadow(0 0 15px #121212);
 }
-
 </style>
